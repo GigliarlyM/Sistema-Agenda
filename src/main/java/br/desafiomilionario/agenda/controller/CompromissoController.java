@@ -16,7 +16,7 @@ public class CompromissoController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CompromissoDto> getOneCompromisso(@RequestParam Long id) {
+    public ResponseEntity<CompromissoDto> getOneCompromisso(@PathVariable Long id) {
         Compromisso result = service.getOne(id);
         CompromissoDto dto = new CompromissoDto(
                 result.getId(),
@@ -25,25 +25,30 @@ public class CompromissoController {
                 result.getLocal(),
                 result.getStatus()
         );
-        // Aqui nao vai da certo pois a classe Compromisso esta usando o lombok
-        // E o retorno deve ser um dto (pois utilizaremos o record para isso)
         return ResponseEntity.ok().body(dto);
     }
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<CompromissoDto> create(@RequestBody CompromissoDto body) {
-        service.save(body);
-        return ResponseEntity.ok().body(body);
+        Long id = service.save(body);
+        CompromissoDto dto = new CompromissoDto(
+                id,
+                body.titulo(),
+                body.dataHora(),
+                body.local(),
+                body.status()
+        );
+        return ResponseEntity.ok().body(dto);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CompromissoDto> update(@RequestParam Long id, @RequestBody CompromissoDto body) {
+    public ResponseEntity<CompromissoDto> update(@PathVariable Long id, @RequestBody CompromissoDto body) {
         service.update(id, body);
         return ResponseEntity.ok().body(body);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CompromissoDto> delete(@RequestParam Long id) {
+    public ResponseEntity<CompromissoDto> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

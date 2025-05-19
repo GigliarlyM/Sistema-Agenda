@@ -25,6 +25,9 @@ public class CompromissoServiceImpl implements CompromissoService {
 
     @Override
     public Compromisso getOne(Long id) {
+        if (!repository.existsById(id)){
+            throw new NoSuchElementException(msgError);
+        }
         return repository.findById(id).orElseThrow(NoSuchElementException::new);
     }
 
