@@ -23,7 +23,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setEmail(dto.email());
         usuario.setNome(dto.nome());
         usuario.setTelefone(dto.telefone());
-//        usuario.setAgenda(dto.agendaId());
+        usuario.setAgenda(null);
         repository.save(usuario);
         return dto;
     }
@@ -54,18 +54,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         Usuario usuario = repository.findById(email)
                 .orElseThrow(NoSuchElementException::new);
 
-        UsuarioDto dto;
-        try {
-            dto = new UsuarioDto(
-                    usuario.getEmail(),
-                    usuario.getNome(),
-                    usuario.getTelefone(),
-                    null
-            );
-        } catch (NoSuchAttributeException e) {
-            throw new RuntimeException(e);
-        }
-
-        return dto;
+        return new UsuarioDto(
+                usuario.getEmail(),
+                usuario.getNome(),
+                usuario.getTelefone(),
+                null
+        );
     }
 }

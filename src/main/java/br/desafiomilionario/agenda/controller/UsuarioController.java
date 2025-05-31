@@ -2,6 +2,7 @@ package br.desafiomilionario.agenda.controller;
 
 import br.desafiomilionario.agenda.model.dto.UsuarioDto;
 import br.desafiomilionario.agenda.model.validation.Email;
+import br.desafiomilionario.agenda.model.validation.Telefone;
 import br.desafiomilionario.agenda.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,9 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDto> postUsuario(@RequestBody UsuarioDto dto) {
+    public ResponseEntity<UsuarioDto> postUsuario(@RequestBody UsuarioDto dto) throws Exception {
+        new Email(dto.email());
+        new Telefone(dto.telefone());
         UsuarioDto result = service.create(dto);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{email}")

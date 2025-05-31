@@ -15,10 +15,11 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // Ali no CSRF DISABLE, eh uma prática nao aconselhada (pois estamos abrindo precha para ataques CSRF)
         // Futuramente colocar uma solução para habilitar o CSRF
-        http.authorizeHttpRequests(authorize ->
-                authorize.anyRequest().permitAll()
-        )
-                .csrf(AbstractHttpConfigurer::disable);
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().permitAll()
+                );
 
         return http.build();
     }
