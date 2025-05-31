@@ -1,8 +1,11 @@
 package br.desafiomilionario.agenda.model.dto;
 
+import br.desafiomilionario.agenda.model.validation.Email;
+import br.desafiomilionario.agenda.model.validation.Telefone;
+
 public record UsuarioDto(
-        String email,
+        Email email,
         String nome,
-        String telefone,
+        Telefone telefone,
         Long agendaId
 ) {}
