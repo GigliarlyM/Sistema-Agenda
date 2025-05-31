@@ -1,7 +1,7 @@
 package br.desafiomilionario.agenda.service;
 
-import br.desafiomilionario.agenda.dto.CompromissoDto;
-import br.desafiomilionario.agenda.entity.Compromisso;
+import br.desafiomilionario.agenda.model.dto.CompromissoDto;
+import br.desafiomilionario.agenda.model.entity.Compromisso;
 
 public interface CompromissoService {
     Long save(CompromissoDto compromissoDto);

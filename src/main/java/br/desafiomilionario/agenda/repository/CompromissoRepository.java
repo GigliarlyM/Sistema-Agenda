@@ -1,6 +1,6 @@
 package br.desafiomilionario.agenda.repository;
 
-import br.desafiomilionario.agenda.entity.Compromisso;
+import br.desafiomilionario.agenda.model.entity.Compromisso;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

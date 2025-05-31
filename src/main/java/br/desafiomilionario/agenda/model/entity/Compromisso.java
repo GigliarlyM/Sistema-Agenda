@@ -1,9 +1,10 @@
-package br.desafiomilionario.agenda.entity;
+package br.desafiomilionario.agenda.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "tb_compromisso")
@@ -16,4 +17,8 @@ public class Compromisso {
     Date dataHora;
     String local;
     Boolean status;
+    @OneToOne
+    Agenda agenda;
+    @OneToMany
+    List<Notificacao> notificacoes;
 }

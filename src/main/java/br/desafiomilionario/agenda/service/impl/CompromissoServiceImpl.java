@@ -1,7 +1,7 @@
 package br.desafiomilionario.agenda.service.impl;
 
-import br.desafiomilionario.agenda.dto.CompromissoDto;
-import br.desafiomilionario.agenda.entity.Compromisso;
+import br.desafiomilionario.agenda.model.dto.CompromissoDto;
+import br.desafiomilionario.agenda.model.entity.Compromisso;
 import br.desafiomilionario.agenda.repository.CompromissoRepository;
 import br.desafiomilionario.agenda.service.CompromissoService;
 import org.springframework.stereotype.Service;

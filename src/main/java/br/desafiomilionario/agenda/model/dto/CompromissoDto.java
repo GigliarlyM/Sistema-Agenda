@@ -1,6 +1,6 @@
-package br.desafiomilionario.agenda.dto;
+package br.desafiomilionario.agenda.model.dto;
 
-import br.desafiomilionario.agenda.entity.Compromisso;
+import br.desafiomilionario.agenda.model.entity.Compromisso;
 
 import java.util.Date;
 
