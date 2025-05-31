@@ -1,9 +1,9 @@
 package br.desafiomilionario.agenda.model.entity;
 
-import java.util.List;
-
 import jakarta.persistence.*;
 import lombok.Data;
+
+import java.util.List;
 
 @Entity
 @Table(name = "tb_agenda")

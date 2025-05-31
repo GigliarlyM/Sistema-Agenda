@@ -1,5 +1,6 @@
 package br.desafiomilionario.agenda.model.entity;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
@@ -15,5 +16,6 @@ public class Usuario {
     String nome;
     String telefone;
     @OneToOne
+    @Nullable
     Agenda agenda;
 }
