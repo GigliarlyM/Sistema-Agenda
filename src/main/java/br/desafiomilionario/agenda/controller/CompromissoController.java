@@ -17,38 +17,26 @@ public class CompromissoController {
 
     @GetMapping("/{id}")
     public ResponseEntity<CompromissoDto> getOneCompromisso(@PathVariable Long id) {
-        Compromisso result = service.getOne(id);
-        CompromissoDto dto = new CompromissoDto(
-                result.getId(),
-                result.getTitulo(),
-                result.getDataHora(),
-                result.getLocal(),
-                result.getStatus()
-        );
-        return ResponseEntity.ok().body(dto);
+        CompromissoDto result = service.getOne(id);
+
+        return ResponseEntity.ok().body(result);
     }
 
     @PostMapping()
     public ResponseEntity<CompromissoDto> create(@RequestBody CompromissoDto body) {
-        Long id = service.save(body);
-        CompromissoDto dto = new CompromissoDto(
-                id,
-                body.titulo(),
-                body.dataHora(),
-                body.local(),
-                body.status()
-        );
+        CompromissoDto dto = service.save(body);
+
         return ResponseEntity.ok().body(dto);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CompromissoDto> update(@PathVariable Long id, @RequestBody CompromissoDto body) {
-        service.update(id, body);
-        return ResponseEntity.ok().body(body);
+        CompromissoDto dto = service.update(id, body);
+        return ResponseEntity.ok().body(dto);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<CompromissoDto> delete(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }

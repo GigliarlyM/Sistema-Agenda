@@ -1,16 +1,18 @@
 package br.desafiomilionario.agenda.model.validation;
 
+import br.desafiomilionario.agenda.exception.BusinessException;
+
 import javax.naming.directory.NoSuchAttributeException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Telefone extends Validate<String> {
-    public Telefone (String telefone) throws NoSuchAttributeException {
+    public Telefone(String telefone) {
         this.value(telefone);
     }
 
     @Override
-    void validated(String newValue) throws NoSuchAttributeException {
+    void validated(String newValue) {
         /* Validos:
             88 8888-8888
             8888888888
@@ -23,7 +25,7 @@ public class Telefone extends Validate<String> {
         Matcher matcher = pattern.matcher(newValue);
 
         if (!matcher.matches()) {
-            throw new NoSuchAttributeException("Telefone inválido!!");
+            throw new BusinessException("Telefone inválido!!");
         }
     }
 }

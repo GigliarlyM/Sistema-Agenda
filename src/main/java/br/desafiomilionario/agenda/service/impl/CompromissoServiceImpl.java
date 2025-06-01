@@ -1,5 +1,6 @@
 package br.desafiomilionario.agenda.service.impl;
 
+import br.desafiomilionario.agenda.exception.BusinessException;
 import br.desafiomilionario.agenda.model.dto.CompromissoDto;
 import br.desafiomilionario.agenda.model.entity.Compromisso;
 import br.desafiomilionario.agenda.repository.CompromissoRepository;
@@ -11,47 +12,57 @@ import java.util.NoSuchElementException;
 @Service
 public class CompromissoServiceImpl implements CompromissoService {
     private final CompromissoRepository repository;
-    private String msgError = "Esse id de compromisso nao existe!";
+    private final String msgError = "Esse id de compromisso nao existe!";
 
     public CompromissoServiceImpl(CompromissoRepository repository) {
         this.repository = repository;
     }
-    // @TODO: fazer tratamento de erro
 
     @Override
-    public Long save(CompromissoDto compromissoDto) {
-        return repository.save(compromissoDto.toEntity()).getId();
+    public CompromissoDto save(CompromissoDto compromissoDto) {
+        Compromisso result = repository.save(compromissoDto.toEntity());
+        return new CompromissoDto(
+                result.getId(),
+                result.getTitulo(),
+                result.getDataHora(),
+                result.getLocal(),
+                result.getStatus()
+        );
     }
 
     @Override
-    public Compromisso getOne(Long id) {
+    public CompromissoDto getOne(Long id) {
         if (!repository.existsById(id)){
-            throw new NoSuchElementException(msgError);
+            throw new BusinessException(msgError);
         }
-        return repository.findById(id).orElseThrow(NoSuchElementException::new);
+        Compromisso result = repository.findById(id).orElseThrow(NoSuchElementException::new);
+        return new CompromissoDto(
+                result.getId(),
+                result.getTitulo(),
+                result.getDataHora(),
+                result.getLocal(),
+                result.getStatus()
+        );
     }
 
     @Override
-    public void update(Long id, CompromissoDto dto) {
-        boolean result = repository.existsById(id);
-        if (!result) {
-            throw new NoSuchElementException(msgError);
+    public CompromissoDto update(Long id, CompromissoDto dto) {
+        if (!repository.existsById(id)) {
+            throw new BusinessException(msgError);
         }
-
-        Compromisso compromisso = new Compromisso();
-        compromisso.setId(id);
-        compromisso.setTitulo(dto.titulo());
-        compromisso.setLocal(dto.local());
-        compromisso.setStatus(dto.status());
-        compromisso.setDataHora(dto.dataHora());
-
-        repository.save(compromisso);
+        Compromisso result = repository.save(dto.toEntity());
+        return new CompromissoDto(
+                result.getId(),
+                result.getTitulo(),
+                result.getDataHora(),
+                result.getLocal(),
+                result.getStatus()
+        );
     }
 
     @Override
     public void delete(Long id) {
-        boolean result = repository.existsById(id);
-        if (!result) throw new NoSuchElementException(msgError);
+        if (!repository.existsById(id)) throw new BusinessException(msgError);
         repository.deleteById(id);
     }
 }

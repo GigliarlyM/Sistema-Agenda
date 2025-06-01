@@ -1,13 +1,12 @@
 package br.desafiomilionario.agenda.service.impl;
 
+import br.desafiomilionario.agenda.exception.BusinessException;
 import br.desafiomilionario.agenda.model.dto.UsuarioDto;
 import br.desafiomilionario.agenda.model.entity.Usuario;
+import br.desafiomilionario.agenda.model.validation.Email;
 import br.desafiomilionario.agenda.repository.UsuarioRepository;
 import br.desafiomilionario.agenda.service.UsuarioService;
 import org.springframework.stereotype.Service;
-
-import javax.naming.directory.NoSuchAttributeException;
-import java.util.NoSuchElementException;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
@@ -19,8 +18,9 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioDto create(UsuarioDto dto) {
+        Email emailValidated = new Email(dto.email());
         Usuario usuario = new Usuario();
-        usuario.setEmail(dto.email());
+        usuario.setEmail(emailValidated.value());
         usuario.setNome(dto.nome());
         usuario.setTelefone(dto.telefone());
         usuario.setAgenda(null);
@@ -30,13 +30,21 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public void delete(String email) {
+        Email emailValidated = new Email(email);
+        if (!repository.existsById(emailValidated.value())) {
+            throw new BusinessException("Email nao cadastrado");
+        }
         repository.deleteById(email);
     }
 
     @Override
-    public UsuarioDto update(UsuarioDto dto) {
+    public UsuarioDto update(String email, UsuarioDto dto) {
+        Email emailValidated = new Email(email);
+        if (!emailValidated.value().equals(dto.email())) {
+            throw new BusinessException("Emails diferentes!!");
+        }
         if (!repository.existsById(dto.email())) {
-            throw new NoSuchElementException("Email nao cadastrado");
+            throw new BusinessException("Email nao cadastrado");
         }
         Usuario usuario = new Usuario();
         usuario.setEmail(dto.email());
@@ -49,10 +57,12 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioDto findOne(String email) {
         if (!repository.existsById(email)) {
-            throw new NoSuchElementException("Email não cadastrado!");
+            throw new BusinessException("Email não cadastrado!");
         }
+
+        // @TODO: encontrar uma forma de remover esse '.orElseThrow()'
         Usuario usuario = repository.findById(email)
-                .orElseThrow(NoSuchElementException::new);
+                .orElseThrow();
 
         return new UsuarioDto(
                 usuario.getEmail(),

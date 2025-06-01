@@ -8,10 +8,10 @@ class Validate<E> {
     public E value() {
         return value;
     }
-    public void value(E newValue) throws NoSuchAttributeException {
+    public void value(E newValue) {
         this.validated(newValue);
         this.value = newValue;
     }
 
-    void validated(E newValue) throws NoSuchAttributeException {}
+    void validated(E newValue) {}
 }
