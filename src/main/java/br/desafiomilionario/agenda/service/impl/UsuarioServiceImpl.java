@@ -71,4 +71,13 @@ public class UsuarioServiceImpl implements UsuarioService {
                 null
         );
     }
+
+    @Override
+    public Usuario findOneUsuario(String email) {
+        Email emailValidated = new Email(email);
+        if (!repository.existsById(emailValidated.value())) {
+            throw new BusinessException("Esse email nao existe!!");
+        }
+        return repository.findById(emailValidated.value()).orElseThrow();
+    }
 }

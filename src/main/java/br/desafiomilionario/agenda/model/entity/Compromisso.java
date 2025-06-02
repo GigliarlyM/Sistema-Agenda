@@ -17,7 +17,8 @@ public class Compromisso {
     Date dataHora;
     String local;
     Boolean status;
-    @OneToOne
+    @ManyToOne
+    @JoinColumn(name = "agenda_id")
     Agenda agenda;
     @OneToMany
     List<Notificacao> notificacoes;

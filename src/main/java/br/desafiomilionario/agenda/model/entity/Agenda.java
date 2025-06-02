@@ -12,10 +12,11 @@ public class Agenda {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
-    @OneToMany
+    @OneToMany(mappedBy = "agenda")
     List<Compromisso> compromissos;
     @OneToMany
     List<Relatorio> relatorios;
     @OneToOne
+    @JoinColumn(name = "usuario_id")
     Usuario usuario;
 }

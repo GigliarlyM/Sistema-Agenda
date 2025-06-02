@@ -6,8 +6,8 @@ import java.util.List;
 // para esse record
 public record AgendaDto(
         Long id,
-        List<Integer> compromissos,
-        List<Integer> relatorios,
+        List<Long> compromissos,
+        List<Long> relatorios,
         String usuarioEmail
 ) {
 }

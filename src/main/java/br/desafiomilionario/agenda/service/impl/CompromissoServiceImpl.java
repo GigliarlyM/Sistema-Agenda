@@ -65,4 +65,13 @@ public class CompromissoServiceImpl implements CompromissoService {
         if (!repository.existsById(id)) throw new BusinessException(msgError);
         repository.deleteById(id);
     }
+
+    @Override
+    public Compromisso findOneCompromisso(Long id) {
+        if (!repository.existsById(id)) {
+            throw new BusinessException(msgError);
+        }
+
+        return repository.findById(id).orElseThrow();
+    }
 }
