@@ -83,4 +83,12 @@ public class AgendaServiceImpl implements AgendaService {
         }
         repository.deleteById(id);
     }
+
+    @Override
+    public Agenda findOneAgenda(Long id) {
+        if (!repository.existsById(id)) {
+            throw new BusinessException("Id de agenda nao existe!!");
+        }
+        return repository.findById(id).orElseThrow();
+    }
 }

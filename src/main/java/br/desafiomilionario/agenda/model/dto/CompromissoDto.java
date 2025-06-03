@@ -9,7 +9,8 @@ public record CompromissoDto(
         String titulo,
         Date dataHora,
         String local,
-        Boolean status
+        Boolean status,
+        Long agendaId
 ) {
     public Compromisso toEntity() {
         Compromisso result = new Compromisso();

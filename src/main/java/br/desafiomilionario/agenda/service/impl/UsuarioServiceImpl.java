@@ -2,6 +2,7 @@ package br.desafiomilionario.agenda.service.impl;
 
 import br.desafiomilionario.agenda.exception.BusinessException;
 import br.desafiomilionario.agenda.model.dto.UsuarioDto;
+import br.desafiomilionario.agenda.model.entity.Agenda;
 import br.desafiomilionario.agenda.model.entity.Usuario;
 import br.desafiomilionario.agenda.model.validation.Email;
 import br.desafiomilionario.agenda.repository.UsuarioRepository;
@@ -68,7 +69,7 @@ public class UsuarioServiceImpl implements UsuarioService {
                 usuario.getEmail(),
                 usuario.getNome(),
                 usuario.getTelefone(),
-                null
+                usuario.getAgenda() != null ? usuario.getAgenda().getId() : null
         );
     }
 
@@ -79,5 +80,15 @@ public class UsuarioServiceImpl implements UsuarioService {
             throw new BusinessException("Esse email nao existe!!");
         }
         return repository.findById(emailValidated.value()).orElseThrow();
+    }
+
+    @Override
+    public void associateAgenda(String email, Agenda agenda) {
+        if (!repository.existsById(email)) {
+            throw new BusinessException("Esse email nao existe!");
+        }
+        Usuario usuario = repository.findById(email).orElseThrow();
+        usuario.setAgenda(agenda);
+        repository.save(usuario);
     }
 }

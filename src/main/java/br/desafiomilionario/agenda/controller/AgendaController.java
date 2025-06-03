@@ -24,7 +24,11 @@ public class AgendaController {
     public ResponseEntity<AgendaDto> createAgenda(@RequestBody AgendaDto agendaDto) {
         AgendaDto result = service.createAgenda(
                 agendaDto, usuarioService.findOneUsuario(agendaDto.usuarioEmail())
-                );
+        );
+        usuarioService.associateAgenda(
+                agendaDto.usuarioEmail(),
+                service.findOneAgenda(result.id())
+        );
         return ResponseEntity.ok().body(result);
     }
 }

@@ -26,7 +26,8 @@ public class CompromissoServiceImpl implements CompromissoService {
                 result.getTitulo(),
                 result.getDataHora(),
                 result.getLocal(),
-                result.getStatus()
+                result.getStatus(),
+                null
         );
     }
 
@@ -41,7 +42,8 @@ public class CompromissoServiceImpl implements CompromissoService {
                 result.getTitulo(),
                 result.getDataHora(),
                 result.getLocal(),
-                result.getStatus()
+                result.getStatus(),
+                null
         );
     }
 
@@ -56,7 +58,8 @@ public class CompromissoServiceImpl implements CompromissoService {
                 result.getTitulo(),
                 result.getDataHora(),
                 result.getLocal(),
-                result.getStatus()
+                result.getStatus(),
+                null
         );
     }
 
