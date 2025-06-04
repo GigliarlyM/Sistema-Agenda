@@ -21,14 +21,14 @@ public class UsuarioController {
     }
 
     @GetMapping("/{email}")
-    public ResponseEntity<UsuarioDto> getUser(@PathVariable String email) throws Exception {
+    public ResponseEntity<UsuarioDto> getUser(@PathVariable String email) {
         Email emailValidated = new Email(email);
         UsuarioDto result = service.findOne(emailValidated.value());
         return ResponseEntity.ok().body(result);
     }
 
     @PostMapping
-    public ResponseEntity<UsuarioDto> postUser(@RequestBody UsuarioDto dto) throws Exception {
+    public ResponseEntity<UsuarioDto> postUser(@RequestBody UsuarioDto dto) {
         new Email(dto.email());
         new Telefone(dto.telefone());
         UsuarioDto result = service.create(dto);
