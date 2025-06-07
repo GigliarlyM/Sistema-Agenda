@@ -86,4 +86,10 @@ public class CompromissoServiceImpl implements CompromissoService {
 
         return repository.findById(id).orElseThrow();
     }
+
+    @Override
+    public void deleteCascade(Long id) {
+        var listCompromisso = repository.findByAgenda_Id(id);
+        repository.deleteAll(listCompromisso);
+    }
 }

@@ -10,4 +10,7 @@ public interface CompromissoService {
     CompromissoDto update(Long id, CompromissoDto compromissoDto, Agenda agenda);
     void delete(Long id);
     Compromisso findOneCompromisso(Long id);
+    /** @param id de uma agenda
+    * */
+    void deleteCascade(Long id);
 }
