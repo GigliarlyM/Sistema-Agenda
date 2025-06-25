@@ -10,4 +10,13 @@ public record AgendaDto(
         List<Long> relatorios,
         String usuarioEmail
 ) {
+    public AgendaWithComprDto toWithCompr(
+            List<CompromissoDto> list
+    ) {
+        return new AgendaWithComprDto(
+                id,
+                list,
+                usuarioEmail
+        );
+    }
 }

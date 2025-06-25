@@ -1,6 +1,8 @@
 package br.desafiomilionario.agenda.controller;
 
 import br.desafiomilionario.agenda.model.dto.AgendaDto;
+import br.desafiomilionario.agenda.model.dto.AgendaWithComprDto;
+import br.desafiomilionario.agenda.model.dto.CompromissoDto;
 import br.desafiomilionario.agenda.service.AgendaService;
 import br.desafiomilionario.agenda.service.CompromissoService;
 import br.desafiomilionario.agenda.service.UsuarioService;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping("/agenda")
@@ -45,9 +48,11 @@ public class AgendaController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<AgendaDto> searchAgenda(@PathVariable Long id) {
+    public ResponseEntity<AgendaWithComprDto> searchAgenda(@PathVariable Long id) {
         AgendaDto result = service.getOneAgenda(id);
-        return ResponseEntity.ok().body(result);
+        List<CompromissoDto> compromissoDtoList = result.compromissos().stream().map(compromissoService::getOne).toList();
+        AgendaWithComprDto agendaWithComprDto = result.toWithCompr(compromissoDtoList);
+        return ResponseEntity.ok().body(agendaWithComprDto);
     }
 
     @DeleteMapping("/{id}")

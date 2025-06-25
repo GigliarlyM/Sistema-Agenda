@@ -5,6 +5,9 @@ import br.desafiomilionario.agenda.service.AgendaService;
 import br.desafiomilionario.agenda.service.CompromissoService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/compromisso")
@@ -27,7 +30,12 @@ public class CompromissoController {
                 agendaService.findOneAgenda(body.agendaId())
         );
 
-        return ResponseEntity.ok().body(dto);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(dto.id())
+                .toUri();
+
+        return ResponseEntity.created(uri).body(dto);
     }
 
     @GetMapping("/{id}")
