@@ -1,0 +1,50 @@
+jwt:
+  secret: "Transforma-se o amador na cousa amada"
+  confirmation:
+    expiration:
+      ms: 86400000
+  auth:
+    expiration:
+      ms: 3600000
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: tentesiongiga@gmail.com
+    password: bgin gxlu ccrm mkwv
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  #  profiles:
+#    active: dev
+  application:
+    name: agenda
+  datasource:
+    url: jdbc:mysql://localhost:3306/SistemaAgenda
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: tente
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+
+springdoc:
+  swagger-ui:
+    enabled: true
+    path: /swagger
+
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG

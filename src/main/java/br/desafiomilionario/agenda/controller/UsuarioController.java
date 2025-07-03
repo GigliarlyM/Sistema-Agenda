@@ -13,6 +13,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/usuario")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
     private final UsuarioService service;
 

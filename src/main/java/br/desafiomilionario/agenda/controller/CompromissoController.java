@@ -11,6 +11,7 @@ import java.net.URI;
 
 @RestController
 @RequestMapping("/compromisso")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CompromissoController {
     private final CompromissoService service;
     private final AgendaService agendaService;

@@ -15,6 +15,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/agenda")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AgendaController {
     private final AgendaService service;
     private final UsuarioService usuarioService;
